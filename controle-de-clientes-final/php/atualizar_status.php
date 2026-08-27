@@ -1,0 +1,2 @@
+<?php
+require __DIR__.'/conexao.php'; header('Content-Type: application/json; charset=utf-8');$in=json_decode(file_get_contents('php://input'),true) ?: $_POST;$id=trim($in['id']??'');$done=!empty($in['concluido'])?1:0;if(!$id){http_response_code(422);echo json_encode(['ok'=>false]);exit;}$s=$pdo->prepare('UPDATE clientes SET concluido=?,atualizado_em=CURRENT_TIMESTAMP WHERE id=?');$s->execute([$done,$id]);echo json_encode(['ok'=>true]);

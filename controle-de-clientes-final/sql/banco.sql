@@ -1,0 +1,13 @@
+CREATE DATABASE IF NOT EXISTS controle_clientes CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE controle_clientes;
+CREATE TABLE IF NOT EXISTS clientes (
+ id VARCHAR(40) PRIMARY KEY,
+ nome_cliente VARCHAR(160) NOT NULL,
+ data_prevista DATE NULL,
+ os VARCHAR(80) NULL,
+ concluido TINYINT(1) NOT NULL DEFAULT 0,
+ observacao VARCHAR(500) NULL,
+ criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ atualizado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ INDEX idx_data (data_prevista), INDEX idx_status (concluido), INDEX idx_os (os)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
