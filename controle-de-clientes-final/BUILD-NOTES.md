@@ -1,1 +1,0 @@
-Agenda profissional: interface, filtros, cadastro, status, backup/CSV, localStorage fallback e API PHP opcional.
