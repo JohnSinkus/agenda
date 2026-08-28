@@ -1,0 +1,1 @@
+Abra index.html para executar a agenda no modo local.
