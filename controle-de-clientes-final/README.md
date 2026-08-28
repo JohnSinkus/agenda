@@ -1,23 +1,71 @@
 # Controle de Clientes — Agenda
 
-Aplicação feita somente com HTML, CSS, JavaScript puro, PHP e SQL.
+Agenda operacional feita somente com **HTML, CSS, JavaScript puro, PHP e SQL**.
 
-## Testar no Windows agora
-1. Extraia a pasta.
-2. Abra `index.html` no Chrome.
-3. A agenda já inicia com a carga dos registros transcritos da imagem enviada.
-4. Use **Backup** para gerar um JSON antes de qualquer alteração importante.
+## Estrutura
 
-> Não abra `index.php` com duplo clique. PHP precisa de um servidor. No GitHub Pages, use `index.html`.
+- `index.html` — entrada para GitHub Pages e uso local
+- `index.php` — entrada para servidores com PHP
+- `style.css` — interface responsiva
+- `app.js` — agenda, filtros, cadastro, edição, exclusão, status, backup e exportação
+- `dados-iniciais.js` — carga inicial baseada na planilha/imagem fornecida
+- `php/` — endpoints para MySQL/MariaDB
+- `sql/banco.sql` — estrutura do banco
+- `sql/dados_exemplo.sql` — carga inicial SQL
 
-## GitHub
-Envie a pasta inteira `controle-de-clientes` para o repositório. Se usar GitHub Pages, a entrada é `index.html`.
+## Uso local
 
-## PHP/MySQL
-Os endpoints PHP estão em `php/` e o esquema em `sql/banco.sql`. Eles são para hospedagem com PHP + MySQL/MariaDB. O arquivo `php/conexao.php` usa variáveis de ambiente para não expor senha no GitHub.
+Abra `index.html` no navegador.
+
+O modo local usa `localStorage`, portanto funciona sem servidor e sem instalação adicional.
+
+## GitHub Pages
+
+Publique a pasta e use `index.html` como entrada. GitHub Pages é hospedagem estática; os endpoints PHP não são executados nele. Nesse cenário o sistema funciona em modo local no navegador.
+
+## PHP + MySQL/MariaDB
+
+Em uma hospedagem com PHP, o frontend detecta automaticamente se `php/clientes.php` está disponível. Quando o banco responder corretamente, o indicador superior muda de `LOCAL` para `BANCO` e os cadastros passam a ser lidos/salvos no banco.
+
+Configure as variáveis de ambiente:
+
+- `DB_HOST`
+- `DB_NAME`
+- `DB_USER`
+- `DB_PASS`
+
+Nunca publique credenciais reais no repositório.
 
 ## Campos
-Nome é obrigatório. Data prevista, OS, observação e Done são opcionais.
 
-## Dados da imagem
-A carga inicial reproduz os registros legíveis da imagem fornecida. Alguns nomes estavam parcialmente cortados/ilegíveis; por isso alguns foram mantidos como leitura aproximada. Revise-os contra a planilha original antes de usar como cadastro oficial.
+| Campo | Obrigatório |
+|---|---|
+| Nome do cliente | Sim |
+| Data prevista | Não |
+| OS | Não |
+| Concluído | Não |
+| Observação | Não |
+
+Data e OS podem ficar vazios no cadastro.
+
+## Recursos
+
+- indicadores clicáveis de Total, Pendentes, Hoje, Atrasados e Concluídos;
+- busca instantânea;
+- filtros combináveis;
+- ordenação operacional;
+- destaque de Hoje e Atrasados;
+- edição e exclusão;
+- checkbox Done direto na tabela;
+- atalhos `N`, `/` e `Ctrl+K`;
+- backup JSON;
+- restauração JSON;
+- exportação CSV;
+- fallback automático para modo local se o backend estiver indisponível.
+
+## Dados iniciais
+
+A carga inicial reproduz os registros legíveis da referência enviada. Dois pontos ambíguos foram preservados em observações para conferência manual:
+
+- `SQUADRA CA`: a imagem indica `14/09 ou 15/09`;
+- `FRIGORIFICO`: a imagem mostra uma data aparente de `17/01/9000`, tratada como data pendente para evitar gravar um prazo provavelmente inválido.
