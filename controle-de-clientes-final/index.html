@@ -1,17 +1,80 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Agenda de clientes e ordens de serviço">
-<title>Controle de Clientes</title><link rel="icon" href="assets/favicon.svg"><link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Agenda profissional de clientes e ordens de serviço">
+  <meta name="theme-color" content="#c83f3f">
+  <title>Agenda | Controle de Clientes</title>
+  <link rel="icon" href="assets/favicon.svg">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="shell">
-<header class="header"><div><div class="kicker">CONTROLE DE CLIENTES</div><h1>Agenda</h1><p>Clientes, datas previstas e ordens de serviço.</p></div><button id="newBtn" class="btn primary">＋ Novo cliente</button></header>
-<section class="stats" aria-label="Resumo"><button data-stat="all"><span>Total</span><strong id="sTotal">0</strong></button><button data-stat="pending"><span>Pendentes</span><strong id="sPending">0</strong></button><button data-stat="today"><span>Hoje</span><strong id="sToday">0</strong></button><button data-stat="overdue"><span>Atrasados</span><strong id="sOverdue">0</strong></button><button data-stat="done"><span>Concluídos</span><strong id="sDone">0</strong></button></section>
-<section class="toolbar"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Buscar cliente, OS ou observação…"></label><select id="status"><option value="all">Todos os status</option><option value="pending">Pendentes</option><option value="done">Concluídos</option></select><select id="period"><option value="all">Todas as datas</option><option value="today">Hoje</option><option value="week">Próximos 7 dias</option><option value="overdue">Atrasados</option><option value="nodate">Sem data</option></select><button id="backupBtn" class="btn">Backup</button><button id="restoreBtn" class="btn">Restaurar</button><input id="restoreInput" type="file" accept="application/json,.json" hidden><button id="exportBtn" class="btn">Exportar</button></section>
-<section class="card"><div class="tablewrap"><table><thead><tr><th class="donecol">DONE</th><th>CLIENTE</th><th>DATA PREVISTA</th><th>OS</th><th>OBSERVAÇÃO</th><th></th></tr></thead><tbody id="tbody"></tbody></table></div><div id="empty" class="empty" hidden><div class="emptyicon">⌕</div><h2>Nenhum cliente encontrado</h2><p>Tente mudar os filtros ou cadastre um novo cliente.</p><button class="btn primary" id="emptyNew">＋ Novo cliente</button></div><div class="footer"><span id="count">0 registros</span><span>Dados salvos neste navegador</span></div></section>
+<div class="app-shell">
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">CONTROLE DE CLIENTES</div>
+      <div class="brand-row"><h1>Agenda</h1><span id="modeBadge" class="mode-badge local">LOCAL</span></div>
+      <p class="subtitle">Seu acompanhamento diário, rápido e organizado.</p>
+    </div>
+    <div class="top-actions">
+      <button class="btn ghost" id="focusSearchBtn" type="button">Pesquisar <kbd>/</kbd></button>
+      <button class="btn ghost" id="clearFilters" type="button">Limpar filtros</button>
+      <button class="btn primary" id="newBtn" type="button">＋ Novo cliente</button>
+    </div>
+  </header>
+
+  <section class="hero-stats" aria-label="Resumo da agenda">
+    <button class="stat" data-stat="all" type="button"><span>Total</span><strong id="sTotal">0</strong><small>cadastros</small></button>
+    <button class="stat" data-stat="pending" type="button"><span>Pendentes</span><strong id="sPending">0</strong><small>em aberto</small></button>
+    <button class="stat attention" data-stat="today" type="button"><span>Hoje</span><strong id="sToday">0</strong><small>atenção imediata</small></button>
+    <button class="stat danger" data-stat="overdue" type="button"><span>Atrasados</span><strong id="sOverdue">0</strong><small>precisam de atenção</small></button>
+    <button class="stat success" data-stat="done" type="button"><span>Concluídos</span><strong id="sDone">0</strong><small>finalizados</small></button>
+  </section>
+
+  <section class="toolbar" aria-label="Filtros e ferramentas">
+    <label class="searchbox"><span>⌕</span><input id="search" type="search" autocomplete="off" placeholder="Buscar cliente, OS ou observação…"><kbd>Ctrl K</kbd></label>
+    <select id="status" aria-label="Filtrar status"><option value="all">Todos os status</option><option value="pending">Pendentes</option><option value="done">Concluídos</option></select>
+    <select id="period" aria-label="Filtrar período"><option value="all">Todas as datas</option><option value="today">Hoje</option><option value="week">Próximos 7 dias</option><option value="overdue">Atrasados</option><option value="nodate">Sem data</option></select>
+    <button class="btn" id="backupBtn" type="button">Backup</button>
+    <button class="btn" id="restoreBtn" type="button">Restaurar</button>
+    <button class="btn" id="exportBtn" type="button">Exportar CSV</button>
+    <input id="restoreInput" type="file" accept="application/json,.json" hidden>
+  </section>
+
+  <section class="agenda-card">
+    <div class="card-head">
+      <div><h2>Agenda de atendimento</h2><p id="context">Todos os clientes</p></div>
+      <div class="legend"><span><i class="dot todaydot"></i>Hoje</span><span><i class="dot overduedot"></i>Atrasado</span><span class="result-pill" id="resultCount">0</span></div>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th class="donecol">DONE</th><th>CLIENTE</th><th>DATA PREVISTA</th><th>OS</th><th>OBSERVAÇÃO</th><th class="actions-col">AÇÕES</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div id="empty" class="empty" hidden>
+      <div class="empty-icon">⌕</div><h2>Nenhum cliente encontrado</h2><p>Não há registros para os filtros atuais.</p><button class="btn primary" id="emptyNew" type="button">＋ Novo cliente</button>
+    </div>
+    <footer><span id="count">0 registros</span><span>Salvamento automático</span></footer>
+  </section>
+
+  <div class="info-strip"><span class="info-dot"></span><div><strong>Atalhos</strong><span><kbd>N</kbd> novo cliente · <kbd>Ctrl K</kbd> pesquisa · <kbd>Esc</kbd> fecha</span></div></div>
 </div>
-<dialog id="dialog"><form id="form" class="modal"><div class="modalhead"><div><div class="kicker">CADASTRO</div><h2 id="modalTitle">Novo cliente</h2></div><button type="button" class="iconbtn" id="closeBtn" aria-label="Fechar">×</button></div><input id="editId" type="hidden"><label>Nome do cliente <b>*</b><input id="name" maxlength="160" required autocomplete="off" placeholder="Ex.: João Carlos"></label><div class="grid2"><label>Data prevista<input id="date" type="date"></label><label>Ordem de Serviço (OS)<input id="os" maxlength="80" placeholder="Ex.: 3321"></label></div><label>Observação<textarea id="notes" maxlength="500" rows="4" placeholder="Opcional"></textarea></label><label class="checkline"><input id="done" type="checkbox"><span><strong>Concluído</strong><small>Marque quando o atendimento estiver finalizado.</small></span></label><div class="actions"><button type="button" class="btn" id="cancelBtn">Cancelar</button><button class="btn primary" type="submit">Salvar</button></div></form></dialog>
-<div id="toast" class="toast" role="status"></div><script src="app.js"></script>
-</body></html>
+
+<dialog id="dialog">
+  <form id="form" class="modal">
+    <div class="modal-head"><div><div class="eyebrow">CADASTRO</div><h2 id="modalTitle">Novo cliente</h2><p>Preencha somente o que você já tiver.</p></div><button type="button" class="icon-btn" id="closeBtn" aria-label="Fechar">×</button></div>
+    <input id="editId" type="hidden">
+    <label>Nome do cliente <b>*</b><input id="name" maxlength="160" required autocomplete="off" placeholder="Ex.: João Carlos"></label>
+    <div class="grid2"><label>Data prevista<input id="date" type="date"></label><label>Ordem de Serviço (OS)<input id="os" maxlength="80" placeholder="Ex.: 3321"></label></div>
+    <label>Observação<textarea id="notes" maxlength="500" rows="4" placeholder="Opcional"></textarea></label>
+    <label class="checkline"><input id="done" type="checkbox"><span><strong>Concluído</strong><small>Marque quando o atendimento estiver finalizado.</small></span></label>
+    <div class="actions"><button type="button" class="btn" id="cancelBtn">Cancelar</button><button class="btn primary" type="submit">Salvar cadastro</button></div>
+  </form>
+</dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="dados-iniciais.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

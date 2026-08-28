@@ -1,31 +1,31 @@
 USE controle_clientes;
-START TRANSACTION;
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-001','EMPRO','2026-08-28','3280',1,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-002','CIBELDE','2026-08-28','3255',1,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-003','OSVALDO','2026-08-31','3312',1,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-004','CALEBE','2026-08-31','3257',1,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-005','SQUADRA PER','2026-09-01',NULL,1,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-006','RONALDO TUR','2026-09-01',NULL,0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-007','PACIENTE','2026-09-01','3238',0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-008','GRIPMASTER','2026-09-02',NULL,0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-009','PRIMASTER','2026-09-02',NULL,0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-010','LEONARDO','2026-09-02',NULL,0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-011','CEI NAZIR MG','2026-09-02',NULL,1,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-012','JOAO CARLOS','2026-09-03','3317',0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-013','ESCOLA LUZ','2026-09-03','3252',1,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-014','ADRIANO VITO','2026-09-04','3318',0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-015','BERCARIO','2026-09-08','3303',0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-016','BURGUIES INT','2026-09-08',NULL,0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-017','GIUSER','2026-09-09','?',0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-018','PATRICIA G','2026-10-09',NULL,1,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-019','CAIO ALZAR','2026-10-09','3332',0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-020','PERCLIANO','2026-10-09','3329',0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-021','NARA','2026-09-11',NULL,0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-022','SQUADRA CA','2026-09-14',NULL,0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-023','FRIGORIFICO','2026-10-17',NULL,0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-024','ASMIR','2026-08-27',NULL,1,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-025','SERGIO','2026-08-08','3308',1,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-026','AGIS','2026-09-04',NULL,0,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-027','JEFFERSON','2026-09-11',NULL,1,NULL);
-INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES ('import-028','BRYAN','2026-08-28','3291',1,NULL);
-COMMIT;
+
+INSERT INTO clientes (id,nome_cliente,data_prevista,os,concluido,observacao) VALUES
+('seed-empro','EMPRO','2026-08-28','3280',1,NULL),
+('seed-cibelde','CIBELDE','2026-08-28','3255',1,NULL),
+('seed-osvaldo','OSVALDO','2026-08-31','3312',1,NULL),
+('seed-calebe','CALEBE','2026-08-31','3257',1,NULL),
+('seed-squadra-per','SQUADRA PER','2026-09-01',NULL,1,NULL),
+('seed-ronaldo-tur','RONALDO TUR','2026-09-01',NULL,0,NULL),
+('seed-paciente','PACIENTE','2026-09-01','3238',0,NULL),
+('seed-gripmaster','GRIPMASTER','2026-09-02',NULL,0,NULL),
+('seed-primaster','PRIMASTER','2026-09-02',NULL,0,NULL),
+('seed-leonardo','LEONARDO','2026-09-02',NULL,0,NULL),
+('seed-cei-nazir','CEI NAZIR MG','2026-09-02',NULL,1,NULL),
+('seed-joao-carlos','JOAO CARLOS','2026-09-03','3317',0,NULL),
+('seed-escola-luz','ESCOLA LUZ','2026-09-03','3252',1,NULL),
+('seed-adriano-vito','ADRIANO VITO','2026-09-04','3318',0,NULL),
+('seed-bercario','BERCARIO','2026-09-08','3303',0,NULL),
+('seed-burguies-int','BURGUIES INT','2026-09-08',NULL,0,NULL),
+('seed-giuser','GIUSER','2026-09-09','?',0,NULL),
+('seed-patricia-g','PATRICIA G','2026-09-10',NULL,1,NULL),
+('seed-caio-alzar','CAIO ALZAR','2026-09-10','3332',0,NULL),
+('seed-percliano','PERCLIANO','2026-09-10','3329',0,NULL),
+('seed-nara','NARA','2026-09-11',NULL,0,NULL),
+('seed-squadra-ca','SQUADRA CA','2026-09-14',NULL,0,'Planilha indica 14/09 ou 15/09. Confirmar data.'),
+('seed-frigorifico','FRIGORIFICO',NULL,NULL,0,'Data original da planilha aparece como 17/01/9000. Revisar antes de definir a data.'),
+('seed-asmir','ASMIR','2026-08-27',NULL,1,NULL),
+('seed-sergio','SERGIO','2026-08-28','3308',1,NULL),
+('seed-agis','AGIS','2026-09-04',NULL,0,NULL),
+('seed-jefferson','JEFFERSON','2026-09-11',NULL,1,NULL),
+('seed-bryan','BRYAN','2026-08-28','3291',1,NULL);
