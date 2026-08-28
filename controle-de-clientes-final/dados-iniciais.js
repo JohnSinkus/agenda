@@ -20,11 +20,11 @@ window.CLIENTES_INICIAIS = [
   ['CAIO ALZAR','2026-09-10','3332',false],
   ['PERCLIANO','2026-09-10','3329',false],
   ['NARA','2026-09-11','',false],
-  ['SQUADRA CA','2026-09-14','',false],
-  ['FRIGORIFICO','2026-10-17','',false],
+  ['SQUADRA CA','2026-09-14','',false,'Planilha indica 14/09 ou 15/09. Confirmar data.'],
+  ['FRIGORIFICO','', '',false,'Data original da planilha aparece como 17/01/9000. Revisar antes de definir a data.'],
   ['ASMIR','2026-08-27','',true],
   ['SERGIO','2026-08-28','3308',true],
   ['AGIS','2026-09-04','',false],
-  ['JEFFERSON','2026-09-11','',false],
+  ['JEFFERSON','2026-09-11','',true],
   ['BRYAN','2026-08-28','3291',true]
 ];
